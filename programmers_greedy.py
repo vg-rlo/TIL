@@ -1,4 +1,4 @@
-import operator as op
+# import operator as op 
 
 def solution(n, lost, reserve):
     answer = 0
@@ -30,8 +30,10 @@ def solution(n, lost, reserve):
         if len(reserve) == 0:
             break 
 
-        add_i = op.add(reserve[idx], 1)
-        sub_i = op.sub(reserve[idx], 1)
+        # add_i = op.add(reserve[idx], 1)
+        # sub_i = op.sub(reserve[idx], 1)
+        add_i = reserve[idx] + 1 # 실행 속도 더 빠름 
+        sub_i = reserve[idx] - 1
 
         if add_i in lost and sub_i in lost:
             lost.pop(lost.index(sub_i))
