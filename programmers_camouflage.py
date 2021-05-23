@@ -9,19 +9,18 @@ def solution(clothes):
     answer = 0
 
     kinds = list(set(list(zip(*clothes))[1])) # 옷 종류 
-    clothes_dict = dict.fromkeys(kinds, [])
+    clothes_dict = dict.fromkeys(kinds, []) # dictionary 생성(key: 옷 종류, value: 해당 종류의 옷들)
 
-    if len(kinds) == 1:
+    if len(kinds) == 1: # 종류가 한개 일 때 
         answer = len(clothes) 
-        print(answer)
-        return answer
-
-    for i in clothes:
-        clothes_dict[i[1]] = clothes_dict[i[1]] + [i[0]]
-    # print('dict: ', clothes_dict)
     
-    clothes_len = [len(clothes_dict[c]) for c in clothes_dict]
-    print('length: ', clothes_len)
+    else: 
+        for i in clothes:
+            clothes_dict[i[1]] = clothes_dict[i[1]] + [i[0]]
+        # print('dict: ', clothes_dict)
+        
+        clothes_len = [len(clothes_dict[c]) for c in clothes_dict]
+        print('length: ', clothes_len)
 
     answer = len(clothes) + multiply(clothes_len)# 조합의 수 구하기
     return answer
