@@ -1,8 +1,10 @@
 def solution(scoville: list, K: int):
-    # scoville: 스코빌 지수(맵기 정도) 
-    # K: 임계값
-    # answer: int or -1, 정답 
-    # mix_cnt: 섞은 회수
+    '''
+    scoville: 스코빌 지수(맵기 정도) 
+    K: 임계값
+    answer: int or -1, 정답 
+    mix_cnt: 섞은 회수
+    '''
     answer = 0
     mixed_cnt = 0
     
