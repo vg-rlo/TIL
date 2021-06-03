@@ -1,4 +1,7 @@
 # using heapq
+from heapq import heappop
+
+
 def solution(scoville: list, K: int):
     '''
     scoville: 스코빌 지수(맵기 정도) 
@@ -10,68 +13,30 @@ def solution(scoville: list, K: int):
     import heapq
     import copy
 
-    answer = 0
     cnt_mixed = 0
     mixed_scoville = 0
-    scoville_copy = scoville.copy()
-
-    # greedy탐색법으로 maximum mixed scoville이 K보다 작으면 return -1
-    max_scoville = max(scoville_copy)
-    scoville_copy.pop(scoville_copy.index(max_scoville))
-    sec_scoville = max(scoville_copy)
-    max_mixed = max_scoville + sec_scoville 
-    if max_mixed < K:
-        return -1
+    heapq.heapify(scoville)
     
     while(1):
-        # scoville내 원소가 모두 삭제거나 임계값 이상이면 break
-        if len(scoville) == 0 or mixed_scoville >= K:
-            break
-        
+        # if len(scoville) != 0:
         min_scoville = heapq.heappop(scoville)
-        sec_scoville = heapq.heappop(scoville)
-        
-        mixed_scoville = mixed_scoville + min_scoville + sec_scoville
-        cnt_mixed += 1
+        # print('s0: ', scoville)
 
-    return cnt_mixed
+        if min_scoville >= K:
+            return cnt_mixed
+        elif len(scoville) == 0 and min_scoville < K:
+            return -1
+        else:
+            sec_scoville = heapq.heappop(scoville)
+            mixed_scoville = min_scoville + 2*sec_scoville
+            # print('s1: ', scoville)
+            heapq.heappush(scoville, mixed_scoville)
+            # print('s2: ', scoville, ' len: ', len(scoville))
 
-# using stack
-def timeover(scoville: list, K: int):
-    '''
-    scoville: 스코빌 지수(맵기 정도) 
-    K: 임계값
-    answer: int or -1, 정답 
-    mix_cnt: 섞은 회수
-    '''
-    answer = 0
-    mixed_cnt = 0
-    
-    scoville = sorted(scoville)
-    first_max = scoville[-1]
-    second_max = scoville[scoville.index(first_max)-1]
-    # print(first_max, second_max)
-    
-    if first_max + second_max < K:
-        return -1
-    else:    
-        while(1): 
-            if (min(scoville) >= K):
-                break
-            first_min = min(scoville)
-            scoville.pop(scoville.index(first_min))
-            second_min = min(scoville)
-            scoville.pop(scoville.index(second_min))
-            # print(scoville)
-            
-            mixed = first_min + (second_min*2)
-            scoville += [mixed]
-            mixed_cnt += 1
-            # print(mixed_cnt)
-            
-        return mixed_cnt
+            cnt_mixed += 1
 
 if __name__ == '__main__':
-    s = [1,2,3,9,10,12]
+    s = [[1,2,3,9,10,12], [0, 0], [1,2], [1,2,3], [7, 1], [3, 4], [4, 4], [3, 3], [1,5], [2,3,7,10,15]]
     k = 7
-    print(solution(s, k))
+    for i in s:
+        print(solution(i, k))
