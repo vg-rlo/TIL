@@ -1,4 +1,4 @@
-from collections import deque
+import numpy as np
 
 def joyStick(name):
     """
@@ -8,50 +8,64 @@ def joyStick(name):
     ▶ - 커서를 오른쪽으로 이동
     """
 
-    move_cnt = 0
-    cnt = 0
-    start = ord('A')
-    end = ord('Z')
+    move_cnt = 0 # 이동횟수 총합
+    leftright_cnt = 0 # 좌우 이동횟수 총합 
+    updown_cnt = 0 # 상하 이동횟수 총합
 
-    # ord(ch)-start
-    # 0이 아닌 원소를 찾기
-    # name = deque(name) 
-    name = [chr for chr in name]
-    print(name)
+    ord_A = ord('A')
+    ord_Z = ord('Z')
 
-    notA_idx = [i+1 if name[i] != 'A' else 0 for i in range(len(name))] # A면 0, 나머지는 index + 1
-    print(notA_idx)
+    # ord(ch) - ord('A')
+    move_up = np.array([[ord(chr)-ord_A, 1] if chr != 'A' else [ord(chr)-ord_A, 0] for chr in name])
+    # print(move_up)
 
+    # A가 아닌 경우를 모두 세기 
+    notA_nums = int(np.sum(move_up, axis=0)[1])
+    # print('A가 아닌 경우의 총 개수: ', notA_nums)
+
+    # 아래로 움직여야하는 횟수 세기
+    move_down = ord_Z - ord_A + 1 - move_up[:, 0]
+    # print(move_down)
+
+    # 위로 움직여야하는 횟수 세기
+    move_up = move_up[:, 0]
+    # print(move_up)
+    
+    # 각 글자마다 최소 상하이동 횟수 리스트
+    updown_min = np.array([min(u, d) for u, d in zip(move_up, move_down)])
+    # print('updown_min: ', updown_min)
+    
+    # 위아래로 움직여야하는 횟수 총합
+    updown_cnt = int(np.sum(updown_min)) # 리스트 총합 
+    print('상하 이동횟수 총합: ', updown_cnt)
+
+    right_cnt = 1
+    left_cnt = 1
+    i = 1
     while(1):
-        # 리스트 길이가 다 0 이거나 모두 A 요소 이면 
-        # if len(name_ord) == 0 or sum(name_ord) == 0:
-        #     print('breakpoint:', len(name_ord))
-        #     print('breakpoint:', sum(name_ord))
-        #     break
+        # print('idx: ', i)
+        # A가 아닌 갯수만큼 모두 이동이 완료됐으면 루프 종료 
+        if right_cnt == notA_nums or left_cnt == notA_nums or i == len(updown_min):
+            leftright_cnt = i
+            break
+            
+        if updown_min[i] != 0:
+            # print(updown_min[i], ':', i)
+            right_cnt += 1 
 
-        notA_right = min(notA_idx) # A가 아닌 요소까지 오른쪽으로 움직여야하는 커서 위치 
-        notA_left = len(notA_idx) - max(notA_idx) + 1 # A가 아닌 요소까지 왼쪽으로 움직여야하는 커서 위치
-        print(notA_right, notA_left)
+        if updown_min[len(updown_min)-i] != 0:
+            # print('왼쪽', updown_min[len(updown_min)-i-1], ':', i)
+            left_cnt += 1
+            # print(left_cnt)
+        i += 1
 
-        # 커서 이동의 결정
-        # if name_ord[0] == 0 and name_ord == :
-        # print(name_ord)
-        break
+    print('좌우 최소 이동횟수: ', leftright_cnt)
 
-        # move_up = ord(name_ord[0])-start
-    #     if move_up != 0: 
-    #         move_down = (end - start + 1) - move_up
-    #         print(move_up, move_down)
-
-    #     if move_up >= move_down:
-    #         move_min = move_down
-    #     else:
-    #         move_min = move_up
-
-    #     move_cnt = move_cnt + move_min
-    #     print(move_cnt)
-
-    # return move_cnt
+    move_cnt = leftright_cnt + updown_cnt - 1 # 좌우 볼때 1부터 봤으니까 1 빼줘야함
+    return move_cnt
 
 if __name__ == '__main__':
-    joyStick('JAZ')
+    test_list = ['JAZ', 'JEROEN', 'JAN', 'ABAAAAAAAAABB', 'JABBBBAAAAAAAABAA']
+    for test in test_list:
+        result = joyStick(test)  
+        print(result)
