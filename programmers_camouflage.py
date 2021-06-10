@@ -1,29 +1,19 @@
-import math
-from itertools import product
-from functools import reduce
-
-def multiply(arr):
-        return reduce(lambda x, y: x * y, arr)
-
 def solution(clothes):
     answer = 0
 
     kinds = list(set(list(zip(*clothes))[1])) # 옷 종류 
     clothes_dict = dict.fromkeys(kinds, []) # dictionary 생성(key: 옷 종류, value: 해당 종류의 옷들)
 
-    if len(kinds) == 1: # 종류가 한개 일 때 
-        answer = len(clothes) 
-    
-    else: 
-        for i in clothes:
-            clothes_dict[i[1]] = clothes_dict[i[1]] + [i[0]]
-        # print('dict: ', clothes_dict)
-        
-        clothes_len = [len(clothes_dict[c]) for c in clothes_dict]
-        print('length: ', clothes_len)
+    clothe_kinds_lst = list(set(list(zip(*clothes))[1]))
+    clothe_kinds_all = list(zip(*clothes))[1]
 
-    answer = len(clothes) + multiply(clothes_len)# 조합의 수 구하기
-    return answer
+    for k in kinds:
+        clothes_dict[k] = clothe_kinds_all.count(k)
+    
+    cnt_mul = 1
+    for cnt in clothes_dict.values():
+        cnt_mul = cnt_mul * (cnt+1)
+    return cnt_mul -1
 
 if __name__ == '__main__':
     tests = [
