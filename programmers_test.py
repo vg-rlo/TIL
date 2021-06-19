@@ -7,13 +7,11 @@ def solution(answers):
 
     for spj in supoja:    
         extend_ans = []
-        extend_len = len(spj) // len(answers) 
-        extend_ans = answers + (extend_len-1)*answers
-    #     print(extend_len)
-    #     print('input: ', spj)
-    #     print('test: ', extend_ans)
-    #     print()
-
+        extend_len = len(spj) // len(answers) # 1, 1, 2
+        if extend_len == 0:
+            extend_ans = extend_ans[:len(answers)]
+        else:
+            extend_ans = answers + (extend_len-1)*answers
         extend_len = len(spj) % len(answers)
         extend_ans = extend_ans + answers[:extend_len]
     #     print(extend_ans)
