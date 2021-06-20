@@ -7,7 +7,6 @@ def solution(answers):
     # ext_spj = []
         
     for spj in supoja:    
-<<<<<<< HEAD
         ext_quot = len(spj) // len(answers) # 정수배 
         
         # 정수배 0일 때 = answers 길이가 spj보다 크거나 같을 때 
@@ -26,23 +25,6 @@ def solution(answers):
         ext_arr = np.array(ext)
         ans_arr = np.array(answers)
         ans = ans_arr[ext_arr == ans_arr]
-=======
-        extend_ans = []
-        extend_len = len(spj) // len(answers) # 1, 1, 2
-        if extend_len == 0:
-            extend_ans = extend_ans[:len(answers)]
-        else:
-            extend_ans = answers + (extend_len-1)*answers
-        extend_len = len(spj) % len(answers)
-        extend_ans = extend_ans + answers[:extend_len]
-    #     print(extend_ans)
-
-        extend_ans = np.array(extend_ans)
-        spj = np.array(spj)
-        ans = spj[spj == extend_ans]
-    #     print(ans)
-    #     print('--')
->>>>>>> e9d51852d5907a5eaef097a972c824a0373a93b5
         correct.append(len(ans))
         print(correct)
 
