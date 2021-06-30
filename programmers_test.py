@@ -25,7 +25,6 @@ def solution(answers):
         ext_arr = np.array(ext_spj)
         ans_arr = np.array(answers)
         ans = ans_arr[ext_arr == ans_arr]
-
         correct.append(len(ans))
         print(correct)
 
