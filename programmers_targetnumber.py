@@ -1,3 +1,6 @@
+# Reference: https://jellysong.tistory.com/68
+# My Blog: https://vg-rlo.tistory.com/119
+
 from itertools import product
 
 def solution(numbers, target):
