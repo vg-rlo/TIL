@@ -1,6 +1,7 @@
 import numpy as np
 
-def joyStick(name):
+# 코드 문제점: 좌우로 이동할 때 한 쪽 방향으로만 움직이는 것은 아니다.
+def solution(name):
     """
     ▲ - 다음 알파벳
     ▼ - 이전 알파벳 (A에서 아래쪽으로 이동하면 Z로)
@@ -32,40 +33,48 @@ def joyStick(name):
     # print(move_up)
     
     # 각 글자마다 최소 상하이동 횟수 리스트
-    updown_min = np.array([min(u, d) for u, d in zip(move_up, move_down)])
-    # print('updown_min: ', updown_min)
+    updown_min = [min(u, d) for u, d in zip(move_up, move_down)]
+    print('updown_min: ', updown_min)
     
     # 위아래로 움직여야하는 횟수 총합
     updown_cnt = int(np.sum(updown_min)) # 리스트 총합 
-    print('상하 이동횟수 총합: ', updown_cnt)
+    # print('상하 이동횟수 총합: ', updown_cnt)
 
-    right_cnt = 1
-    left_cnt = 1
-    i = 1
+    # 좌우로 움직여야하는 최소 횟수 세기 
+    notA_idx = [i for i in range(1, len(updown_min)) if updown_min[i] != 0]
+    notA_len = len(updown_min)
+    # print(notA_idx)
+
+    left = 0 
+    right = 0
+    now_idx = 0
+    
     while(1):
-        # print('idx: ', i)
-        # A가 아닌 갯수만큼 모두 이동이 완료됐으면 루프 종료 
-        if right_cnt == notA_nums or left_cnt == notA_nums or i == len(updown_min):
-            leftright_cnt = i
+        if len(notA_idx) == 0:
             break
-            
-        if updown_min[i] != 0:
-            # print(updown_min[i], ':', i)
-            right_cnt += 1 
+        
+        right = notA_idx[0] - now_idx
+        left = notA_len - notA_idx[0] + now_idx
+        # print(left, right)
 
-        if updown_min[len(updown_min)-i] != 0:
-            # print('왼쪽', updown_min[len(updown_min)-i-1], ':', i)
-            left_cnt += 1
-            # print(left_cnt)
-        i += 1
+        if right >= left:
+            leftright_cnt = leftright_cnt + left
+            now_idx = left
+        else:
+            leftright_cnt = leftright_cnt + right
+            now_idx = right
 
-    print('좌우 최소 이동횟수: ', leftright_cnt)
+        now_idx = notA_idx.pop(0)
 
-    move_cnt = leftright_cnt + updown_cnt - 1 # 좌우 볼때 1부터 봤으니까 1 빼줘야함
+    # print('좌우 이동횟수 총합: ', leftright_cnt)
+
+    move_cnt = leftright_cnt + updown_cnt # - 1 # 좌우 볼때 1부터 봤으니까 1 빼줘야함
     return move_cnt
 
 if __name__ == '__main__':
-    test_list = ['JAZ', 'JEROEN', 'JAN', 'ABAAAAAAAAABB', 'JABBBBAAAAAAAABAA']
+    test_list = ['JAZ', 'JEROEN', 'JAN', 'ABAAAAAAAAABB', 'JABBBBAAAAAAAABAA', 'A', 'Z', 'AAZ', 'ZZZAAAZ', 'ABBBAAAAABB'] 
+    # answer = 11, 56, 23, 7, 27, 0, 1, 2, 8, 12
     for test in test_list:
-        result = joyStick(test)  
+        result = solution(test)  
         print(result)
+        print('----------')
