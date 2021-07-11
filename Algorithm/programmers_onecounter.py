@@ -1,4 +1,4 @@
-def oneCounter(num):
+def solution(num):
     answer = 0
 
     # 이진수로 변환
@@ -18,4 +18,4 @@ def oneCounter(num):
 if __name__ == '__main__':
     numbers = [9, 3, 1, 8] # result: 3, 0, 0, 3
     for n in numbers:
-        print(oneCounter(n))
+        print(solution(n))

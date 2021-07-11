@@ -1,6 +1,6 @@
 from math import ceil as ceil 
 
-def funcDevelop(progresses: list, speeds: list):
+def solution(progresses: list, speeds: list):
     answer = []
     power =  int # 일률(power): 힘 x 속도 
     nums = len(progresses) # 작업량 
@@ -32,5 +32,5 @@ if __name__ == '__main__': # program started
     s1 = [1, 30, 5]
     s2 = [1, 1, 1, 1, 1, 1]
 
-    print(funcDevelop(p1, s1))
-    print(funcDevelop(p2, s2))
+    print(solution(p1, s1))
+    print(solution(p2, s2))

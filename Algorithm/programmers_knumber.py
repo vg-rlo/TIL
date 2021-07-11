@@ -1,4 +1,4 @@
-def kNumber(array, commands):
+def solution(array, commands):
     answer = []
 
     # 예상 arr_sliced값: [(3, [2, 6, 3, 7]), (1, [3]), (3, [5, 2, 6, 3, 7, 4])]
@@ -11,5 +11,5 @@ if __name__ == '__main__':
     cmd1 = [[2, 5, 3], [4, 4, 1], [1, 7, 3]]
 
     # 예상 return값: [5, 6, 3]
-    print(kNumber(arr1, cmd1)) 
+    print(solution(arr1, cmd1)) 
 
