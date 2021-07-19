@@ -3,26 +3,28 @@ import heapq
 def solution(number, k):
     answer = ''
     
-    # 숫자로 바꿔준다.
-    num2int = [[ch[0], int(ch[1])] for ch in enumerate(number)]
-    print(num2int)
+    # k까지 슬라이싱 후, 그 중 가장 큰 수의 Index 추출
+    num2int = [int(num) for num in number]
+    max_idx = num2int.index(max(num2int[:k]))
+    num2int = num2int[max_idx:]
+    remain_k = k - max_idx    
+    # print(num2int)
+    # print(f"남은 제거 가능 개수: {remain_k}개")
 
-    # heap으로 min을 pop시킨다.
+    i = 0
     while(1):
-        i=k
-        if i == k:
+        # 제거 가능 개수가 0개이면 break
+        if remain_k == 0 or i == len(num2int)-1:
             break
+        
+        if num2int[i] < num2int[i+1]:
+            num2int.pop(i)
+            remain_k -= 1
+        else:
+            i += 1
+    # print(num2int)
 
-        num2int.pop()
-    print(num2int)
-
-    # 큰 숫자로 정렬을 먼저한다. 
-    int2num = [str(i) for i in num2int]
-    # print(int2num)
-
-    answer = "".join(int2num)
-    # print(answer)
-
+    answer = "".join(map(str, num2int))
     return answer
 
 if __name__ == '__main__':
