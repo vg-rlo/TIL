@@ -8,7 +8,6 @@ def solution(number, k):
     max_idx = num2int.index(max(num2int[:k]))
     num2int = num2int[max_idx:]
     remain_k = k - max_idx    
-    # print(num2int)
     # print(f"남은 제거 가능 개수: {remain_k}개")
 
     i = 0
