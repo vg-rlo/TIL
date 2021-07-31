@@ -8,18 +8,18 @@ def solution(board, moves):
     cnt = 0
     basket = []
     for m in moves:
-        out = board[m-1][-1]
         for b in range(len(board)):
-            if board[b][m-1] != 0:
-                basket.append(board[b][m-1])
+            doll = board[b][m-1]
+            if doll != 0:
+                basket.append(doll)
                 board[b][m-1] = 0
+                if len(basket) >= 2:
+                    if basket[-1] == basket[-2]:
+                        basket.pop(-1)
+                        basket.pop(-1)
+                        cnt += 2
                 break
-        if len(basket) >= 2 and basket[-1] == basket[-2]:
-            basket.pop(-1)
-            basket.pop(-1)
-            cnt += 1
-
-    return cnt*2
+    return cnt
 
 
 if __name__ == '__main__':
