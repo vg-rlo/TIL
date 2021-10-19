@@ -1,4 +1,5 @@
 # 재귀 알고리즘
+# 문제 - https://www.acmicpc.net/problem/2447
 # 필사 블로그 - https://yeol2.tistory.com/38
 def make_mat(pattern):
     mat = []
@@ -7,7 +8,9 @@ def make_mat(pattern):
             mat.append(pattern[i%len(pattern)]+" "*len(pattern)+pattern[i%len(pattern)])
         else:
             mat.append(pattern[i%len(pattern)]*3)
-    return (list(mat))
+    # more fast
+    # return (list(mat))
+    return mat
 
 if __name__ == "__main__":
     base_pattern = ["***", "* *", "***"]
