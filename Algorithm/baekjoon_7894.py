@@ -1,5 +1,5 @@
 # 재귀 알고리즘 대신 단순 for loop
-# 수학식 활용 - log
+# 수학식 활용 - log, 곱셈 대신 덧셈
 # Time over solved
 # 참고 블로그 - https://prod.velog.io/@inwooleeme/%EB%B0%B1%EC%A4%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-7894%EB%B2%88-%ED%81%B0-%EC%88%98
 # 참고 블로그 - https://lifedev0.tistory.com/78
@@ -36,7 +36,7 @@ if __name__ == "__main__":
         for i in range(1, n+1):
             log_sum += log10(i)
         print(int(log_sum)+1)
-        
+
         # Wrong
         # print(ceil(log_sum)) 
 
