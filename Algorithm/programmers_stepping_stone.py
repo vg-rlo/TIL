@@ -7,6 +7,7 @@ def solution(distance, rocks, n):
     n(int): 제거할 바위의 수
     '''
     answer = 0
+    # 이분 탐색을 적용하기 위한 정렬
     sorted_rocks = list(sorted(rocks))
 
     between_dist_min = []
